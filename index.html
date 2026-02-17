@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LazyManLabs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0b;
+      color: #e5e5e5;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 4rem 0 3rem;
+      border-bottom: 1px solid #222;
+      margin-bottom: 3rem;
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .logo span {
+      color: #666;
+      font-weight: 400;
+    }
+
+    .tagline {
+      color: #888;
+      font-size: 1.1rem;
+    }
+
+    /* Project Grid */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #141416;
+      border: 1px solid #222;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: #444;
+      transform: translateY(-2px);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: #1a1a1d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .card-body {
+      padding: 1.25rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .card-title a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .card-title a:hover {
+      text-decoration: underline;
+    }
+
+    .status {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 50px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .status.live {
+      background: #0f2d1a;
+      color: #4ade80;
+    }
+
+    .status.demo {
+      background: #2d2305;
+      color: #facc15;
+    }
+
+    .status.concept {
+      background: #1a1a1d;
+      color: #888;
+    }
+
+    .card-description {
+      color: #999;
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 0 2rem;
+      margin-top: 3rem;
+      border-top: 1px solid #222;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #888;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem;
+      }
+
+      header {
+        padding: 2rem 0 1.5rem;
+      }
+
+      .logo {
+        font-size: 1.75rem;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="logo">LazyMan<span>Labs</span></h1>
+      <p class="tagline">Minimum effort. Maximum impact.</p>
+    </header>
+
+    <main class="projects">
+      <!-- Loudest Voter -->
+      <article class="card">
+        <div class="card-image">📢</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="https://loudestvoter.com" target="_blank">Loudest Voter</a></h2>
+            <span class="status live">Live</span>
+          </div>
+          <p class="card-description">AI-powered civic emails. Find your reps, write compelling campaigns, and make your voice heard.</p>
+        </div>
+      </article>
+
+      <!-- Swipe Heist -->
+      <article class="card">
+        <div class="card-image">💳</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="https://swipeheist.com" target="_blank">Swipe Heist</a></h2>
+            <span class="status live">Live</span>
+          </div>
+          <p class="card-description">See how much your local economy loses to credit card fees. A case for cash and local payment systems.</p>
+        </div>
+      </article>
+
+      <!-- Game Describer -->
+      <article class="card">
+        <div class="card-image">🎯</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="#">Game Describer</a></h2>
+            <span class="status demo">Demo</span>
+          </div>
+          <p class="card-description">Kids describe what they see, others pick from similar images. Builds listening and description skills.</p>
+        </div>
+      </article>
+
+      <!-- Kylito's Way -->
+      <article class="card">
+        <div class="card-image">🗺️</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="#">Kylito's Way</a></h2>
+            <span class="status demo">Demo</span>
+          </div>
+          <p class="card-description">Enter your location, get a 3D environment from Maps data. Drive around, paintball, explore your town.</p>
+        </div>
+      </article>
+
+      <!-- Callender -->
+      <article class="card">
+        <div class="card-image">📱</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="#">Callender</a></h2>
+            <span class="status demo">Demo</span>
+          </div>
+          <p class="card-description">Schedule fake texts and calls to yourself. The perfect escape hatch for bad dates and awkward situations.</p>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <p>Built with vibes &nbsp;·&nbsp; <a href="https://github.com/52kilo">GitHub</a></p>
+    </footer>
+  </div>
+</body>
+</html>
