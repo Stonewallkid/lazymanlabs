@@ -50,6 +50,33 @@
       font-size: 1.1rem;
     }
 
+    .donate-btn {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #000;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .donate-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+    }
+
+    .donate-note {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
     /* Project Grid */
     .projects {
       display: grid;
@@ -184,6 +211,8 @@
     <header>
       <h1 class="logo">LazyMan<span>Labs</span></h1>
       <p class="tagline">Minimum effort. Maximum impact.</p>
+      <a href="#" class="donate-btn">Buy Me a Coffee</a>
+      <span class="donate-note">I'll wire this up later—enjoy for now!</span>
     </header>
 
     <main class="projects">
