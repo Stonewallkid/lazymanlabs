@@ -50,14 +50,30 @@
       font-size: 1.1rem;
     }
 
+    .donate-section {
+      margin-top: 2rem;
+    }
+
+    .donate-label {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 0.75rem;
+    }
+
+    .donate-buttons {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
     .donate-btn {
-      display: inline-block;
-      margin-top: 1.5rem;
-      padding: 0.75rem 1.5rem;
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      color: #000;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.25rem;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -67,14 +83,67 @@
 
     .donate-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
     }
 
-    .donate-note {
-      display: block;
-      margin-top: 0.5rem;
-      font-size: 0.8rem;
+    .donate-btn.paypal {
+      background: #0070ba;
+      color: #fff;
+    }
+
+    .donate-btn.paypal:hover {
+      box-shadow: 0 4px 20px rgba(0, 112, 186, 0.4);
+    }
+
+    .donate-btn.eth {
+      background: #627eea;
+      color: #fff;
+    }
+
+    .donate-btn.eth:hover {
+      box-shadow: 0 4px 20px rgba(98, 126, 234, 0.4);
+    }
+
+    .donate-btn.venmo {
+      background: #3d95ce;
+      color: #fff;
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .donate-btn.venmo:hover {
+      transform: none;
+    }
+
+    .eth-address {
+      margin-top: 0.75rem;
+      font-family: monospace;
+      font-size: 0.75rem;
       color: #666;
+      word-break: break-all;
+      display: none;
+    }
+
+    .eth-address.show {
+      display: block;
+    }
+
+    .copied-toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #4ade80;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .copied-toast.show {
+      opacity: 1;
     }
 
     /* Project Grid */
@@ -211,9 +280,17 @@
     <header>
       <h1 class="logo">LazyMan<span>Labs</span></h1>
       <p class="tagline">Minimum effort. Maximum impact.</p>
-      <a href="#" class="donate-btn">Buy Me a Coffee</a>
-      <span class="donate-note">I'll wire this up later—enjoy for now!</span>
+      <div class="donate-section">
+        <p class="donate-label">Support the lab</p>
+        <div class="donate-buttons">
+          <a href="https://www.paypal.com/ncp/payment/9GPXC757HUKKL" target="_blank" class="donate-btn paypal">PayPal</a>
+          <button onclick="copyEth()" class="donate-btn eth">ETH</button>
+          <span class="donate-btn venmo">Venmo (soon)</span>
+        </div>
+        <p id="ethAddress" class="eth-address">0xA9dDf7941DB057c77D6F1A8D7f7865Da84779EAf</p>
+      </div>
     </header>
+    <div id="toast" class="copied-toast">ETH address copied!</div>
 
     <main class="projects">
       <!-- Loudest Voter -->
@@ -389,5 +466,15 @@
       <p>Built with vibes &nbsp;·&nbsp; <a href="https://github.com/Stonewallkid">GitHub</a></p>
     </footer>
   </div>
+<script>
+    function copyEth() {
+      const addr = '0xA9dDf7941DB057c77D6F1A8D7f7865Da84779EAf';
+      navigator.clipboard.writeText(addr);
+      document.getElementById('ethAddress').classList.add('show');
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+  </script>
 </body>
 </html>
