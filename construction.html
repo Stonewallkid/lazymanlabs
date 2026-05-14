@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LazyManLabs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0b;
+      color: #e5e5e5;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 4rem 0 3rem;
+      border-bottom: 1px solid #222;
+      margin-bottom: 3rem;
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .logo span {
+      color: #666;
+      font-weight: 400;
+    }
+
+    .tagline {
+      color: #888;
+      font-size: 1.1rem;
+    }
+
+    .donate-section {
+      margin-top: 2rem;
+    }
+
+    .donate-label {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 0.75rem;
+    }
+
+    .donate-buttons {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .donate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.25rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .donate-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .donate-btn.paypal {
+      background: #0070ba;
+      color: #fff;
+    }
+
+    .donate-btn.paypal:hover {
+      box-shadow: 0 4px 20px rgba(0, 112, 186, 0.4);
+    }
+
+    .donate-btn.eth {
+      background: #627eea;
+      color: #fff;
+    }
+
+    .donate-btn.eth:hover {
+      box-shadow: 0 4px 20px rgba(98, 126, 234, 0.4);
+    }
+
+    .donate-btn.venmo {
+      background: #3d95ce;
+      color: #fff;
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .donate-btn.venmo:hover {
+      transform: none;
+    }
+
+    .eth-address {
+      margin-top: 0.75rem;
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: #666;
+      word-break: break-all;
+      display: none;
+    }
+
+    .eth-address.show {
+      display: block;
+    }
+
+    .copied-toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #4ade80;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .copied-toast.show {
+      opacity: 1;
+    }
+
+    /* Project Grid */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #141416;
+      border: 1px solid #222;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: #444;
+      transform: translateY(-2px);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      object-position: center;
+      background: #1a1a1d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    img.card-image {
+      display: block;
+    }
+
+    img.card-image.swipeheist {
+      object-position: center 35%;
+    }
+
+    .card-body {
+      padding: 1.25rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .card-title a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .card-title a:hover {
+      text-decoration: underline;
+    }
+
+    .status {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 50px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .status.live {
+      background: #0f2d1a;
+      color: #4ade80;
+    }
+
+    .status.demo {
+      background: #2d2305;
+      color: #facc15;
+    }
+
+    .status.concept {
+      background: #1a1a1d;
+      color: #888;
+    }
+
+    .status.pro {
+      background: #1a1a2d;
+      color: #a78bfa;
+    }
+
+    .card-description {
+      color: #999;
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 0 2rem;
+      margin-top: 3rem;
+      border-top: 1px solid #222;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #888;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem;
+      }
+
+      header {
+        padding: 2rem 0 1.5rem;
+      }
+
+      .logo {
+        font-size: 1.75rem;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="logo">LazyMan<span>Labs</span></h1>
+      <p class="tagline">Minimum effort. Maximum impact.</p>
+      <div class="donate-section">
+        <p class="donate-label">Support the lab</p>
+        <div class="donate-buttons">
+          <a href="https://www.paypal.com/ncp/payment/9GPXC757HUKKL" target="_blank" class="donate-btn paypal">PayPal</a>
+          <button onclick="copyEth()" class="donate-btn eth">ETH</button>
+          <span class="donate-btn venmo">Venmo (soon)</span>
+        </div>
+        <p id="ethAddress" class="eth-address">0xA9dDf7941DB057c77D6F1A8D7f7865Da84779EAf</p>
+      </div>
+    </header>
+    <div id="toast" class="copied-toast">ETH address copied!</div>
+
+    <main class="projects">
+      <!-- Loudest Voter -->
+      <article class="card">
+        <div class="card-image">📢</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="https://loudestvote.com" target="_blank">Loudest Vote</a></h2>
+            <span class="status live">Live</span>
+          </div>
+          <p class="card-description">AI-powered civic emails. Find your reps, write compelling campaigns, and make your voice heard.</p>
+        </div>
+      </article>
+
+      <!-- Swipe Heist -->
+      <article class="card">
+        <div class="card-image">💳</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="https://swipeheist.com" target="_blank">Swipe Heist</a></h2>
+            <span class="status live">Live</span>
+          </div>
+          <p class="card-description">See how much your local economy loses to credit card fees. A case for cash and local payment systems.</p>
+        </div>
+      </article>
+
+      <!-- Game Describer -->
+      <article class="card">
+        <div class="card-image">🎯</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="https://cozy-lollipop-f24586.netlify.app" target="_blank">Descrybr</a></h2>
+            <span class="status demo">Demo</span>
+          </div>
+          <p class="card-description">Kids describe what they see, others pick from similar images. Builds listening and description skills.</p>
+        </div>
+      </article>
+
+      <!-- Kylito's Way -->
+      <article class="card">
+        <div class="card-image">🗺️</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="https://stonewallkid.github.io/Kylito-s-Way/" target="_blank">Kylito's Way</a></h2>
+            <span class="status demo">Demo</span>
+          </div>
+          <p class="card-description">Enter your location, get a 3D environment from Maps data. Drive around, paintball, explore your town.</p>
+        </div>
+      </article>
+
+      <!-- Callender -->
+      <article class="card">
+        <div class="card-image">📱</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="#">Callender</a></h2>
+            <span class="status demo">Demo</span>
+          </div>
+          <p class="card-description">Schedule fake texts and calls to yourself. The perfect escape hatch for bad dates and awkward situations.</p>
+        </div>
+      </article>
+
+      <!-- Internet Overlay -->
+      <article class="card">
+        <div class="card-image">🖍️</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="#">Internet Overlay</a></h2>
+            <span class="status demo">Demo</span>
+          </div>
+          <p class="card-description">Chrome extension to highlight, annotate, and draw on any webpage. Friends see your marks and comment. Turn the whole internet into a social canvas.</p>
+        </div>
+      </article>
+
+      <!-- Battery Bye -->
+      <article class="card">
+        <div class="card-image">🪫</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="#">Battery Bye</a></h2>
+            <span class="status demo">Demo</span>
+          </div>
+          <p class="card-description">Listens for a keyword, then fakes the battery dying. Perfect for getting kids off devices without the fight.</p>
+        </div>
+      </article>
+
+      <!-- SignalForge -->
+      <article class="card">
+        <div class="card-image">🤖</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="#">SignalForge</a></h2>
+            <span class="status demo">Demo</span>
+          </div>
+          <p class="card-description">Crypto trading bot marketplace. Build bots, rent bots, or rent out your own. Algorithmic trading for everyone.</p>
+        </div>
+      </article>
+
+      <!-- Chess Lab -->
+      <article class="card">
+        <div class="card-image">♟️</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="https://chess-game-dad7c.web.app" target="_blank">Chess Lab</a></h2>
+            <span class="status demo">Demo</span>
+          </div>
+          <p class="card-description">Chess training with wild custom modes. 5 rows of pawns vs a normal army. 5 kings each. Online play and custom boards.</p>
+        </div>
+      </article>
+
+      <!-- Paper Football -->
+      <article class="card">
+        <div class="card-image">🏈</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="#">Paper Football</a></h2>
+            <span class="status demo">Demo</span>
+          </div>
+          <p class="card-description">Flick a paper football to hang over the table edge. Snap a photo of your real table—salt shakers become obstacles.</p>
+        </div>
+      </article>
+
+      <!-- TraffExcuse -->
+      <article class="card">
+        <div class="card-image">🚗</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="#">TraffExcuse</a></h2>
+            <span class="status demo">Demo</span>
+          </div>
+          <p class="card-description">Prove you were stuck in traffic. Combines GPS, camera, and real traffic data into an airtight excuse for your boss.</p>
+        </div>
+      </article>
+
+      <!-- Money Catcher -->
+      <article class="card">
+        <div class="card-image">💰</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="#">Money Catcher</a></h2>
+            <span class="status demo">Demo</span>
+          </div>
+          <p class="card-description">Kids catch falling money, then spend it in a store. But wait—the money outside went up! A chaotic lesson in opportunity cost.</p>
+        </div>
+      </article>
+
+      <!-- FairTix -->
+      <article class="card">
+        <div class="card-image">🎟️</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="#">FairTix</a></h2>
+            <span class="status demo">Demo</span>
+          </div>
+          <p class="card-description">Host events and sell tickets without getting gouged. An Eventbrite alternative that doesn't take half your revenue.</p>
+        </div>
+      </article>
+
+      <!-- LazyPOS -->
+      <article class="card">
+        <div class="card-image">🍽️</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="#">LazyPOS</a></h2>
+            <span class="status pro">Pro</span>
+          </div>
+          <p class="card-description">Full-featured restaurant point-of-sale system. Orders, tables, kitchen display, payments—the works.</p>
+        </div>
+      </article>
+
+      <!-- Scale of Everything -->
+      <article class="card">
+        <div class="card-image">🌌</div>
+        <div class="card-body">
+          <div class="card-header">
+            <h2 class="card-title"><a href="scale-of-everything.html" target="_blank">Scale of Everything</a></h2>
+            <span class="status demo">Demo</span>
+          </div>
+          <p class="card-description">A narrated journey through the universe. How many Earths fit in our orbit? Turn on your volume and find out.</p>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <p>Built with vibes &nbsp;·&nbsp; <a href="https://github.com/Stonewallkid">GitHub</a></p>
+    </footer>
+  </div>
+<script>
+    function copyEth() {
+      const addr = '0xA9dDf7941DB057c77D6F1A8D7f7865Da84779EAf';
+      navigator.clipboard.writeText(addr);
+      document.getElementById('ethAddress').classList.add('show');
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+  </script>
+</body>
+</html>
