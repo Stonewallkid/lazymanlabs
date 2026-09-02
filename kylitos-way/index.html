@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,maximum-scale=1.0">
+  <title>Kylito's Way Beta 1.0</title>
+  <script type="module" crossorigin src="./assets/index-CuwdePsV.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-_gGOJxFJ.css">
+</head>
+<body>
+  <div id="launch">
+    <div class="gbg"></div>
+    <div class="tl">Kylito's Way</div>
+    <div class="ver">Beta 1.0</div>
+    <div class="sb">Survive the Outbreak</div>
+    <div class="ig">
+      <div class="sr">
+        <input type="text" id="li" placeholder="Address, city, or landmark..." value="Paris, France"/>
+        <button class="bt" id="go-btn">Go</button>
+      </div>
+      <div style="color:rgba(255,255,255,.15);font-size:.5rem;margin-top:.3em">— OR —</div>
+      <button class="bt bt2" id="gps-btn">📍 Use My Location</button>
+      <div style="margin-top:1.5em;padding-top:1em;border-top:1px solid rgba(255,255,255,.1)">
+        <div style="color:rgba(255,255,255,.3);font-size:.5rem;letter-spacing:.2em;margin-bottom:.5em">SUPPORT DEVELOPMENT</div>
+        <a href="ethereum:0x41693DF6D0D2ba13Bb26aa320AC20D8aee963618" class="bt bt3" style="text-decoration:none;display:inline-block">Donate ETH</a>
+        <div style="color:rgba(255,255,255,.15);font-size:.4rem;margin-top:.4em;word-break:break-all">0x41693DF6D0D2ba13Bb26aa320AC20D8aee963618</div>
+      </div>
+    </div>
+    <div id="loading-spinner"></div>
+    <div id="st"></div>
+    <div class="pw" id="pw"><div class="pb" id="pb"></div></div>
+  </div>
+
+  <div id="hud">
+    <div class="hl"><div id="hn">—</div></div>
+
+    <!-- Desktop controls key -->
+    <div id="controls-key" class="desktop-only">
+      <div class="key-title">CONTROLS</div>
+      <div class="key-row"><span class="key">WASD</span> Move</div>
+      <div class="key-row"><span class="key">ARROWS</span> Look</div>
+      <div class="key-row"><span class="key">/</span> Shoot</div>
+      <div class="key-row"><span class="key">SHIFT</span> Sprint / Fly</div>
+      <div class="key-row"><span class="key">SPACE</span> Jump</div>
+      <div class="key-row"><span class="key">E</span> Enter/Exit Vehicle</div>
+      <div class="key-row"><span class="key">J</span> Jetpack</div>
+      <div class="key-row"><span class="key">G</span> Wingsuit (in air)</div>
+      <div class="key-row"><span class="key">N</span> Night Mode</div>
+      <div class="key-row"><span class="key">P</span> Paintball Mode</div>
+      <div class="key-row"><span class="key">M</span> Drop Marker</div>
+      <div class="key-row"><span class="key">C</span> Clear Markers</div>
+      <div class="key-row"><span class="key">H</span> Hide/Show</div>
+    </div>
+    <div class="dh desktop-only"><span>H</span> toggle controls</div>
+
+    <!-- Mobile menu button -->
+    <div id="mobile-menu-btn" class="mobile-only">☰</div>
+
+    <!-- Mobile menu panel -->
+    <div id="mobile-menu" class="mobile-only hidden">
+      <div class="mobile-menu-header">
+        <span>MENU</span>
+        <div id="mobile-menu-close">✕</div>
+      </div>
+      <div class="mobile-menu-item" id="mm-jetpack">
+        <span class="mm-icon">🚀</span>
+        <span class="mm-label">Jetpack</span>
+        <span class="mm-status" id="mm-jetpack-status">OFF</span>
+      </div>
+      <div class="mobile-menu-item" id="mm-paintball">
+        <span class="mm-icon">🎨</span>
+        <span class="mm-label">Paintball</span>
+        <span class="mm-status" id="mm-paintball-status">OFF</span>
+      </div>
+      <div class="mobile-menu-item" id="mm-sprint">
+        <span class="mm-icon">⚡</span>
+        <span class="mm-label">Auto-Sprint</span>
+        <span class="mm-status" id="mm-sprint-status">OFF</span>
+      </div>
+      <div class="mobile-menu-item" id="mm-car">
+        <span class="mm-icon">🚗</span>
+        <span class="mm-label">Enter/Exit Car</span>
+      </div>
+      <div class="mobile-menu-item" id="mm-marker">
+        <span class="mm-icon">📍</span>
+        <span class="mm-label">Drop Marker</span>
+      </div>
+      <div class="mobile-menu-item" id="mm-clear-markers">
+        <span class="mm-icon">🗑️</span>
+        <span class="mm-label">Clear Markers</span>
+      </div>
+    </div>
+
+    <!-- Mobile touch controls -->
+    <div class="tc" id="touch-controls">
+      <div class="jz" id="jz"><div class="jb" id="jb"><div class="jk" id="jk"></div></div></div>
+      <div class="lz" id="lz"></div>
+      <div class="ab" id="action-btns"></div>
+    </div>
+  </div>
+
+  <div id="speedometer"><span id="spd-val">0</span> <span class="unit">MPH</span></div>
+
+  <!-- Mini Map -->
+  <div id="minimap-container">
+    <canvas id="minimap" width="150" height="150"></canvas>
+    <div id="minimap-north">N</div>
+    <div id="minimap-coords"></div>
+  </div>
+  <div id="attribution"></div>
+  <canvas id="gc"></canvas>
+
+</body>
+</html>
