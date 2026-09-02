@@ -22,7 +22,7 @@
   #start-screen .sub { font-size: 14px; color: #888; letter-spacing: 0.2em; text-transform: uppercase; }
   #start-screen .click { margin-top: 6vh; font-size: 13px; color: #555; letter-spacing: 0.3em; animation: pulse 2s ease-in-out infinite; text-align: center; }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
-  #debug { position: fixed; top: 10px; left: 10px; font-size: 12px; color: rgba(255,255,100,0.9); z-index: 999; pointer-events: none; white-space: pre-line; background: rgba(0,0,0,0.7); padding: 8px 12px; border-radius: 4px; max-width: 50vw; }
+  #debug { display: none; position: fixed; top: 10px; left: 10px; font-size: 12px; color: rgba(255,255,100,0.9); z-index: 999; pointer-events: none; white-space: pre-line; background: rgba(0,0,0,0.7); padding: 8px 12px; border-radius: 4px; max-width: 50vw; }
   #test-btn { position: fixed; top: 10px; right: 10px; z-index: 999; background: #222; color: #fff; border: 1px solid #555; padding: 8px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; cursor: pointer; display: none; }
   #test-btn:hover { background: #444; }
 </style>
@@ -72,8 +72,14 @@ function drawStars(t) {
 // ===========================
 const dbgEl = document.getElementById('debug');
 const dbgLines = [];
+// The on-screen panel is opt-in: add ?debug to the URL. The voice diagnostics
+// below are worth keeping (browser TTS is unreliable and this is how it gets
+// diagnosed), but they belong in the console, not over the intro.
+const DEBUG = new URLSearchParams(location.search).has('debug');
+if (DEBUG) dbgEl.style.display = 'block';
 function dbg(msg) {
   console.log('[TTS]', msg);
+  if (!DEBUG) return;
   dbgLines.push(msg);
   if (dbgLines.length > 10) dbgLines.shift();
   dbgEl.textContent = dbgLines.join('\n');
